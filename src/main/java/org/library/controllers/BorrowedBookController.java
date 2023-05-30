@@ -67,6 +67,7 @@ public class BorrowedBookController {
             logger.warn(msg);
             return msg;
         }
+
         if(!student.getHasBorrowedBook()){
             msg = "You don't have any borrowed book to return.";
             System.out.println(msg);
@@ -75,14 +76,6 @@ public class BorrowedBookController {
         }
 
 
-//        Query query = entityManager.createQuery("Select b from BorrowedBook b where b.book like '%" + book.getId() + "%'");
-//
-//        if (query.getResultList().size() == 0){
-//            msg = "Returning wrong book";
-//            System.out.println(msg);
-//            logger.warn(msg);
-//            return msg;
-//        }
         entityManager.getTransaction().begin();
 
         try{
@@ -101,7 +94,7 @@ public class BorrowedBookController {
             entityManager.getTransaction().commit();
             return msg;
 
-        } catch (NoResultException e){
+        } catch ( NoResultException e){
             msg = student.getName() + " is returning the wrong book: " + book.getTitle();
             System.out.println(msg);
             logger.warn(msg);
